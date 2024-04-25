@@ -1,0 +1,37 @@
+class Solution {
+    public boolean closeStrings(String word1, String word2) {
+
+        var freqMapOfWord1 = getCharFrequencyMap(word1);
+        var freqMapOfWord2 = getCharFrequencyMap(word2);
+
+        return areCharSetsIdentical(freqMapOfWord1.keySet(), freqMapOfWord2.keySet())
+               && areFrequencyGroupsEquals(freqMapOfWord1, freqMapOfWord2);
+    }
+
+    private <K, V extends Comparable<? super V>> boolean areFrequencyGroupsEquals(Map<K, V> freqMapOne, Map<K, V> freqMapTwo) {
+
+        if (freqMapOne.size() != freqMapTwo.size()) return false;
+
+        List<V> list1 = new ArrayList<>(freqMapOne.values());
+        List<V> list2 = new ArrayList<>(freqMapTwo.values());
+
+        Collections.sort(list1);
+        Collections.sort(list2);
+
+        return list1.equals(list2);
+    }
+
+    private boolean areCharSetsIdentical(Set<Character> set1, Set<Character> set2) {
+        return set1.equals(set2);
+    }
+
+    private Map<Character, Integer> getCharFrequencyMap(String s) {
+
+        Map<Character, Integer> resultMap = new HashMap<>();
+        for (char ch : s.toCharArray()) {
+            resultMap.merge(ch, 1, Integer::sum);
+        }
+
+        return resultMap;
+    }
+}
