@@ -1,0 +1,23 @@
+
+class Solution {
+    ListNode start= null;
+    public ListNode reverseList(ListNode head) {
+        if(head==null){
+            return null;
+        }
+        reverse(head);
+        //head=head.next;
+        return start;
+    }
+    public ListNode reverse(ListNode head){
+        if(head.next==null){
+            start = head;
+            return head;
+        }
+        ListNode curr = head; 
+        ListNode tail= reverse(head.next);
+        tail.next = curr;
+        curr.next = null;
+        return curr;
+    }
+}
